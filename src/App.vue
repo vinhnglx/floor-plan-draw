@@ -46,13 +46,10 @@ export default {
       errorMessage: "",
     };
   },
-  computed: {
-    loaded() {
-      return !this.isLoading;
-    },
-  },
+  computed: {},
   methods: {
     modifyData() {
+      console.log("tables", this.tables)
       this.tables.map((table) => this.addonDataForTable(table));
       this.isLoading = false;
     },
@@ -164,14 +161,16 @@ export default {
   watch: {},
   mounted() {
     this.modifyData();
-    setTimeout(() => {
+  },
+  updated() {
+    this.$nextTick(function () {
       const tables = this.tables;
       for (let i = 0; i < tables.length; i++) {
         const table = tables[i];
         this.dragTable(this, table, i);
       }
-    }, 0);
-  },
+    })
+  }
 };
 </script>
 
